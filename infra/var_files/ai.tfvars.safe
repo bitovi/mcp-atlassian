@@ -1,4 +1,4 @@
-registry_arn        = "arn:aws:ecr:us-east-2:767397775295:repository/ai/ai-coding-agent"
+registry_arn        = "arn:aws:ecr:us-east-2:767397775295:repository/ai/mcp-atlassian"
 s3_arn              = "arn:aws:s3:::ai-coding-agent"
 aws_region          = "us-east-2"
 log_group_name      = "ai-enablement-cluster"
