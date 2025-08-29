@@ -107,5 +107,3 @@ resource "aws_iam_role_policy" "task_role_policy" {
       ]
     })
 }
-
-

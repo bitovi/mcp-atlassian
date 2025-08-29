@@ -6,7 +6,7 @@ resource "aws_ecs_task_definition" "ai_coding_agent_td" {
   memory    = var.mem_request
   execution_role_arn = aws_iam_role.tdf_execution_role.arn
   task_role_arn = aws_iam_role.tdf_task_role.arn
-  
+
   container_definitions = jsonencode([
     {
       name      = "${var.app_name}-${var.target_environment}"

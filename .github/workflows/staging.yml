@@ -32,7 +32,7 @@ jobs:
       s3_key: "mcp-atlassian/terraform/staging.tfstate"
       enable_execute_command: true
     secrets: inherit
-  
+
   smoke-testing:
     uses: ./.github/workflows/smoke_testing.yml
     needs:

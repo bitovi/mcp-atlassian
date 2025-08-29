@@ -48,14 +48,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_AI }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_AI }}
           aws-region: ${{ env.AWS_REGION }}
-      
+
       - run: terraform init -backend-config="key=${{ inputs.s3_key }}"
 
       - name: Create .env file for terraform
@@ -72,13 +72,13 @@ jobs:
             -var "target_environment=${{ inputs.environment_tag }}" \
             -var "enable_execute_command=${{ inputs.enable_execute_command }}" \
             -var "auth_token=${{ secrets.AUTH_TOKEN }}"
-        
+
       - name: Generate an output
         id: get-fqdn
         run: |
           url=$(terraform output -raw fqdn)
           echo "fqdn=$url" >> $GITHUB_OUTPUT
-      
+
       - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
         id: deployment
@@ -149,7 +149,7 @@ jobs:
                 text:
                   type: "mrkdwn"
                   text: "> Check the logs for <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|details>."
-      
+
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@v2
@@ -157,4 +157,4 @@ jobs:
           token: '${{ github.token }}'
           environment-url: "https://${{ needs.deploy.outputs.fqdn }}"
           state: 'failure'
-          deployment-id: ${{ needs.deploy.outputs.deployment_id }} 
+          deployment-id: ${{ needs.deploy.outputs.deployment_id }}

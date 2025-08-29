@@ -26,7 +26,7 @@ resource "aws_ecs_service" "ai_coding_agent_service" {
   task_definition = aws_ecs_task_definition.ai_coding_agent_td.arn
   launch_type     = "FARGATE"
   desired_count   = var.desired_replica_count
-  enable_execute_command = var.enable_execute_command 
+  enable_execute_command = var.enable_execute_command
 
   network_configuration {
     subnets         = data.aws_subnets.default_subnets.ids

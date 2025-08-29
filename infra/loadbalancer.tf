@@ -131,4 +131,3 @@ resource "aws_route53_record" "app_ipv6" {
     evaluate_target_health = true
     }
 }
-
