@@ -7,6 +7,7 @@ from typing import Any, Literal, Optional
 
 from cachetools import TTLCache
 from fastmcp import FastMCP
+from fastmcp.server.dependencies import get_http_request
 from fastmcp.tools import Tool as FastMCPTool
 from mcp.types import Tool as MCPTool
 from starlette.applications import Starlette
@@ -14,7 +15,6 @@ from starlette.middleware import Middleware
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.responses import JSONResponse
-from fastmcp.server.dependencies import get_http_request
 
 from mcp_atlassian.confluence import ConfluenceFetcher
 from mcp_atlassian.confluence.config import ConfluenceConfig
@@ -53,9 +53,9 @@ async def main_lifespan(app: FastMCP[MainAppContext]) -> AsyncIterator[dict]:
             if jira_config.is_auth_configured():
                 # Override config values with custom headers if present
                 custom_url = request.headers.get("x-jira-url")
-                custom_username = request.headers.get("x-jira-username") 
+                custom_username = request.headers.get("x-jira-username")
                 custom_api_token = request.headers.get("x-jira-api-token")
-            
+
                 if custom_url:
                     jira_config.url = custom_url
                 if custom_username:
