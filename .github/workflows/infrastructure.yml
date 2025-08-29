@@ -63,6 +63,9 @@ jobs:
           echo "MCP_VERY_VERBOSE=true" >> .env
           echo "TRANSPORT=streamable-http" >> .env
           echo "PORT=8000" >> .env
+          echo "JIRA_URL=fake-URL" >> .env
+          echo "JIRA_USERNAME=fake-username" >> .env
+          echo "JIRA_API_TOKEN=fake-token" >> .env
 
       - id: plan
         run: |

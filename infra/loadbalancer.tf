@@ -102,7 +102,7 @@ resource "aws_lb_listener_rule" "allow_authorized" {
 
   condition {
     http_header {
-      http_header_name = "X-Authorization"
+      http_header_name = "x-authorization"
       values           = ["Bearer ${var.auth_token}"]
     }
   }
