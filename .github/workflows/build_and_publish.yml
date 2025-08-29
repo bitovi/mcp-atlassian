@@ -33,10 +33,10 @@ jobs:
 
       - name: Push Docker image
         run: |
-          aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }} -f Dockerfile .
-          docker tag ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }} -f Dockerfile .${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }} -f Dockerfile .nv.ECR_PATH }}:${{ inputs.environment_tag }}
-          docker push ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }} -f Dockerfile .
-          docker push ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }} -f Dockerfile .environment_tag }}
+          aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ vars.ECR_URL }}
+          docker tag ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }} ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.environment_tag }}
+          docker push ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }}
+          docker push ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.environment_tag }}
 
   slackNotificationSuccess:
     name: Slack Notification (Success)
