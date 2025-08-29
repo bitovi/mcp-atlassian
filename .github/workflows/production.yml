@@ -40,14 +40,14 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_AI }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_AI }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Push Docker image
         run: |
-          aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ env.ECR_URL }}
-          docker pull ${{ env.ECR_URL }}${{ env.ECR_PATH }}:${{ needs.get-last-successful-staging-run-id.outputs.run_id }}
-          docker tag ${{ env.ECR_URL }}${{ env.ECR_PATH }}:${{ needs.get-last-successful-staging-run-id.outputs.run_id }} ${{ env.ECR_URL }}${{ env.ECR_PATH }}:production
-          docker push ${{ env.ECR_URL }}${{ env.ECR_PATH }}:production
+          aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ vars.ECR_URL }}
+          docker pull ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ needs.get-last-successful-staging-run-id.outputs.run_id }}
+          docker tag ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ needs.get-last-successful-staging-run-id.outputs.run_id }} ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:production
+          docker push ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:production
 
   smoke-testing:
     uses: ./.github/workflows/smoke_testing.yml

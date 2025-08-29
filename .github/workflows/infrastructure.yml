@@ -54,7 +54,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_AI }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_AI }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - run: terraform init -backend-config="key=${{ inputs.s3_key }}"
 
@@ -113,11 +113,11 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "<${{ github.server_url }}/${{ github.repository }}|${{ env.APP_NAME_NOTIFICATION }}> ${{ inputs.environment_tag}} deployment created :white_check_mark:"
+                  text: "<${{ github.server_url }}/${{ github.repository }}|${{ vars.APP_NAME_NOTIFICATION }}> ${{ inputs.environment_tag}} deployment created :white_check_mark:"
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "Deploying image: ${{ env.ECR_URL }}${{ env.ECR_PATH }}:${{ inputs.image_tag }}"
+                  text: "Deploying image: ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }}"
               - type: "section"
                 text:
                   type: "mrkdwn"
@@ -140,11 +140,11 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "<${{ github.server_url }}/${{ github.repository }}|${{ env.APP_NAME_NOTIFICATION }}> ${{ inputs.environment_tag}} deployment creation failed :x:"
+                  text: "<${{ github.server_url }}/${{ github.repository }}|${{ vars.APP_NAME_NOTIFICATION }}> ${{ inputs.environment_tag}} deployment creation failed :x:"
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "Attempted to deploy image: ${{ env.ECR_URL }}${{ env.ECR_PATH }}:${{ inputs.image_tag }}"
+                  text: "Attempted to deploy image: ${{ vars.ECR_URL }}${{ vars.ECR_PATH }}:${{ inputs.image_tag }}"
               - type: "section"
                 text:
                   type: "mrkdwn"
