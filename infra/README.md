@@ -9,7 +9,7 @@ cp infra/var_files/example.tfvars infra/var_files/<environment-name>.tfvars
 ```
 
 **2. Create the following services**:
-1. ECR
+1. Elastic Container Registry
 2. S3
 3. ECS Cluster
     - Create a namespace, recommendation: default
@@ -23,6 +23,7 @@ cp infra/var_files/example.tfvars infra/var_files/<environment-name>.tfvars
 
 **5. Upload the .env file to the S3 bucket, update the tfvars with the file arn**
 
+**6. Generate an auth token**
 
 
 ## SSHing into containers
@@ -38,7 +39,7 @@ aws ecs execute-command \
   --interactive
 ```
 
-## Local management and testing
+## Infra creation
 
 ```bash
 terraform init -backend-config="key=mcp-atlassian/terraform/staging.tfstate"
@@ -50,3 +51,24 @@ terraform apply \
   -var "enable_execute_command=true" \
   -var "auth_token=<token>"
 ```
+
+
+## Auth Token
+
+The `auth_token` value is used by the Application Load Balancer which checks incoming traffic for a matching `x-authenticaion` header before passing the traffic to the mcp-atlassian deployment.
+
+Example usage:
+```json
+"mcp-atlassian-service": {
+    "url": "https://mcp-atlassian.example.com/mcp/",
+    "type": "http",
+    "headers": {
+        "x-authorization": "Bearer a-randomly-generated-auth-token",
+        "x-jira-api-token": "your-jira-token",
+        "x-jira-url": "https://example.atlassian.net",
+        "x-jira-username": "example@email.com"
+    }
+}
+```
+
+
